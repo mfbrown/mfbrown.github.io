@@ -1,0 +1,37 @@
+// Colors 
+$dodger-blue: rgba(0, 71, 133, 1);
+$dodger-grey: rgba(197, 206, 213, 1);
+
+// Site Wide Styles
+
+body {
+	background: whitesmoke;
+}
+
+
+.headings {
+	@include grid-row();
+}
+
+.paragraphs {
+	@include grid-row();
+}
+
+
+.blog-area {
+	@include grid-row();
+	h1 {
+		text-align: center;
+	}
+	.blog-post {
+		@include grid-column(
+			$columns: 8,
+			$center: true
+		);
+	}
+}
+
+blockquote {
+	margin-left: 1.25em;
+	border-left: 4px solid $dodger-grey;
+}
