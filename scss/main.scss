@@ -1,13 +1,15 @@
 // Colors 
 $dodger-blue: rgba(0, 71, 133, 1);
 $dodger-grey: rgba(197, 206, 213, 1);
+$blue: rgb(78, 152, 234);
+$off-white: rgb(237, 229, 223);
 
 // Site Wide Styles
 
 body {
-	background: whitesmoke;
+	height: 100%;
+	background: $off-white;
 }
-
 
 .headings {
 	@include grid-row();
@@ -17,6 +19,20 @@ body {
 	@include grid-row();
 }
 
+.title-content {
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		color: rgb(54, 54, 54);
+	}
+
+	h1 {
+		text-shadow: 1px 1px 1px steelblue;
+	}
+}
 
 .blog-area {
 	@include grid-row();
@@ -24,14 +40,47 @@ body {
 		text-align: center;
 	}
 	.blog-post {
-		@include grid-column(
-			$columns: 8,
-			$center: true
-		);
+		@include grid-column(12);
+	}
+}
+
+@media #{$large-up} {
+	.blog-area { 
+		.blog-post {
+			@include grid-column(
+				$center: true,
+				$columns: 8
+				);
+		}
 	}
 }
 
 blockquote {
-	margin-left: 1.25em;
-	border-left: 4px solid $dodger-grey;
+	margin-left: 1em;
+	border-left: 4px solid $blue;
+}
+
+// LAYOUT DRAFT STYLES 
+
+nav {
+	background: $blue;
+	width: 100%;
+	text-align: center;
+	box-shadow: 1px 1px 1px 1px lightslategray;
+	h1 {
+		margin-bottom: 0.25rem;
+	}
+	ul {
+		text-align: center;
+		margin-left: 0;
+		li {
+			display: inline-block;
+			a {
+				padding: 5px 15px;
+				border: 2px solid $off-white;
+				border-radius: 5px;
+				color: $off-white;
+			}
+		}
+	}
 }

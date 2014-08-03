@@ -1,11 +1,11 @@
 /*
 Syntax error: Undefined mixin 'grid-row'.
-        on line 13 of /Users/michaelbrown/mfbrowndesign/mfbrown.github.io/scss/main.scss, in `grid-row'
-        from line 13 of /Users/michaelbrown/mfbrowndesign/mfbrown.github.io/scss/main.scss
+        on line 15 of /Users/michaelbrown/mfbrowndesign/mfbrown.github.io/scss/main.scss, in `grid-row'
+        from line 15 of /Users/michaelbrown/mfbrowndesign/mfbrown.github.io/scss/main.scss
 
 Backtrace:
-/Users/michaelbrown/mfbrowndesign/mfbrown.github.io/scss/main.scss:13:in `grid-row'
-/Users/michaelbrown/mfbrowndesign/mfbrown.github.io/scss/main.scss:13
+/Users/michaelbrown/mfbrowndesign/mfbrown.github.io/scss/main.scss:15:in `grid-row'
+/Users/michaelbrown/mfbrowndesign/mfbrown.github.io/scss/main.scss:15
 /Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/tree/visitors/perform.rb:253:in `visit_mixin'
 /Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/tree/visitors/base.rb:37:in `visit'
 /Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/tree/visitors/perform.rb:100:in `visit'
@@ -74,4 +74,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'grid-row'.\A         on line 13 of /Users/michaelbrown/mfbrowndesign/mfbrown.github.io/scss/main.scss, in `grid-row'\A         from line 13 of /Users/michaelbrown/mfbrowndesign/mfbrown.github.io/scss/main.scss"; }
+  content: "Syntax error: Undefined mixin 'grid-row'.\A         on line 15 of /Users/michaelbrown/mfbrowndesign/mfbrown.github.io/scss/main.scss, in `grid-row'\A         from line 15 of /Users/michaelbrown/mfbrowndesign/mfbrown.github.io/scss/main.scss"; }
