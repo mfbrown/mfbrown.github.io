@@ -41,7 +41,7 @@
 //headings
 h1 {
 	@include header-font-stack;
-	font-size: 4em;
+	font-size: 3em;
 	// text-shadow: 1px 1px 1px $blue;
 	font-weight: 100;
 }
@@ -83,8 +83,8 @@ blockquote {
 
 //SVG Icon Size
 .icon {
-	width: 48px;
-	height: 48px;
+	width: 32px;
+	height: 32px;
 }
 
 
@@ -94,7 +94,7 @@ blockquote {
 
 .title-content {
 	h1 {
-		font-size: 5rem;
+		font-size: 4rem;
 	}
 }
 
