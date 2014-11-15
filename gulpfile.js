@@ -62,7 +62,6 @@ gulp.task('watch', function () {
 
 // Deploy Task
 var options = {
-    remoteURL: "https://github.com/mfbrown/mfbrown.github.io.git",
     branch: "master"
 }
 
