@@ -66,8 +66,9 @@ var options = {
 }
 
 gulp.task("deploy", ["jekyll-build"], function () {
-    return gulp.src("./_site/**/*, '!./node_modules/**'")
-        .pipe(deploy(options));
+    return gulp.src("./**/*, '!./node_modules/**'")
+        .pipe(deploy(options))
+        .pipe(gulp.dest('.tmp'));
 });
 
 /**
