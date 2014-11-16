@@ -45,7 +45,7 @@ gulp.task('sass', function () {
             includePaths: ['scss'],
             onError: browserSync.notify
         }))
-        .pipe(prefix(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
+        .pipe(prefix(['last 15 versions', '> 1%', 'ie 8'], { cascade: true }))
         .pipe(gulp.dest('_site/css'))
         .pipe(browserSync.reload({stream:true}))
         .pipe(gulp.dest('css'));
@@ -66,7 +66,7 @@ var options = {
 }
 
 gulp.task("deploy", ["jekyll-build"], function () {
-    return gulp.src("./**/*, '!./node_modules/**'")
+    return gulp.src("./*, '!./node_modules/**'")
         .pipe(deploy(options))
         .pipe(gulp.dest('.tmp'));
 });
