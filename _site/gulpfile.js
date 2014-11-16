@@ -1,9 +1,10 @@
 var gulp        = require('gulp');
 var browserSync = require('browser-sync');
-var sass        = require('gulp-sass');
+var sass        = require('gulp-ruby-sass');
 var prefix      = require('gulp-autoprefixer');
 var cp          = require('child_process');
 var deploy = require("gulp-gh-pages");
+var sourcemaps = require('gulp-sourcemaps');
 
 var messages = {
     jekyllBuild: '<span style="color: grey">Running:</span> $ jekyll build'
@@ -41,11 +42,8 @@ gulp.task('browser-sync', ['sass', 'jekyll-build'], function() {
  */
 gulp.task('sass', function () {
     return gulp.src('_scss/main.scss')
-        .pipe(sass({
-            includePaths: ['scss'],
-            onError: browserSync.notify
-        }))
-        .pipe(prefix(['last 15 versions', '> 1%', 'ie 8'], { cascade: true }))
+        .pipe(sass({sourcemap: true, sourcemapPath: './'}))
+        .on('error', function (err) { console.log(err.message); })
         .pipe(gulp.dest('_site/css'))
         .pipe(browserSync.reload({stream:true}))
         .pipe(gulp.dest('css'));
@@ -57,7 +55,7 @@ gulp.task('sass', function () {
  */
 gulp.task('watch', function () {
     gulp.watch('_scss/*.scss', ['sass']);
-    gulp.watch(['index.html', '_layouts/*.html', '_posts/*'], ['jekyll-rebuild']);
+    gulp.watch(['index.html', '_layouts/*.html', '_posts/*', 'styleguide/*.html'], ['jekyll-rebuild']);
 });
 
 // Deploy Task
