@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Making a WordPress Gallery Responsive</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="I'm a front end developer in Washington, D.C. I write CSS for <a href='http://www.jibe.com'>Jibe</a> and learn something new every day.">
+    <link rel="canonical" href="http://mfbrown.github.io/wordpress,/rwd,/jquery/2015/01/04/responsive-wordpress-gallery/">
+
+    <!-- Custom CSS -->
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/main.css">
+
+
+</head>
+
+
+    <body class="site">
+
+    <header class="site-header">
+
+  <div class="container">
+
+    <a class="site-title" href="/">Michael Brown</a>
+
+    <nav class="site-nav"></nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>Making a WordPress Gallery Responsive</h1>
+    <p class="meta">Jan 4, 2015</p>
+  </header>
+
+  <article class="post-content">
+  <p>I’ve been looking for a good responsive WordPress gallery solution as a last step towards finishing this portfolio I’ve been working on. There are plenty of responsive image solutions for WordPress, but as far as I can tell, they are mostly applicable to single images within a post and less so for a WordPress created gallery. I didn’t find a great solution as a plugin, so I decided to build my own. Here’s what I’ve made: </p>
+
+<p>I installed the <a href="http://wordpress.org/plugins/cleaner-gallery/">Cleaner Gallery plugin</a> which does a great job of cleaning up the default gallery output by replacing the table elements with figure and div elements. Then I modified the plugin and assigned the Foundation 5 grid classes to the figure elements. This change makes the gallery rows and columns flow in the same manner as the rest of the site. On large screens the gallery has 3 columns, on medium screens there are 2 columns, and on small screens the gallery collapses to 1 column.</p>
+
+<p>I was inspired by this post, <a href="http://css-tricks.com/hassle-free-responsive-images-for-wordpress/">Hassle Free Responsive Images for WordPress</a> to use the resized images that WordPress generates when you upload an image. I’ll serve these resized images to the user based on their screen size. </p>
+
+<p>This is the part of this challenge that’s still a little incomplete. WordPress takes width and height parameters that you specify, resizes the images to fit those parameters and then appends the new parameters to the new filename. For example: “All-My-Sons-2-1000x636.jpg.” Unfortunately, I’ve found ZERO information about how to change this convention. Depending on the initial upload, the dimension sizes vary. In order to serve these images, I needed a consistent naming convention. For the moment, I’m just manually renaming the images, giving the small and medium images a “-small.jpg” or “-medium.jpg” label. Until I either find a plugin or hack at the core, I’ll have to keep doing this.</p>
+
+<p>Cleaner Gallery uses the defined thumbnail image size as the thumbnails for the gallery. In my case, these are 400x400. Since these images aren’t going to be much bigger or smaller than this, I’m not changing these images for different screens. They’ll be a little big for most phones, but not much. </p>
+
+<p>I want to change the thumbnail attachment link, which is the image that will open in a lightbox when clicked. In the gallery code below, I’m looking to change the link in the anchor tag:</p>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="lineno">1</span> <span class="nt">&lt;figure</span> <span class="na">class=</span><span class="s">&#39;gallery-item small-12 medium-6 large-4 columns&#39;</span><span class="nt">&gt;</span>
+<span class="lineno">2</span>   <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&#39;gallery-icon &#39;</span><span class="nt">&gt;</span>
+<span class="lineno">3</span>       <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&#39;http://localhost:8888/wp-content/uploads/2014/03/Suessical-6.jpg&#39;</span> <span class="na">rel=</span><span class="s">&quot;lightbox[gallery-0]&quot;</span><span class="nt">&gt;</span>
+<span class="lineno">4</span>           <span class="nt">&lt;img</span> <span class="na">width=</span><span class="s">&quot;400&quot;</span> <span class="na">height=</span><span class="s">&quot;400&quot;</span> <span class="na">src=</span><span class="s">&quot;http://localhost:8888/wp-content/uploads/2014/03/Suessical-6-400x400.jpg&quot;</span> <span class="na">class=</span><span class="s">&quot;attachment-thumbnail&quot;</span> <span class="na">alt=</span><span class="s">&quot;Suessical- Horton Discovers his flower in Scene 6&quot;</span> <span class="nt">/&gt;</span>
+<span class="lineno">5</span>       <span class="nt">&lt;/a&gt;</span>
+<span class="lineno">6</span>   <span class="nt">&lt;/div&gt;</span>
+<span class="lineno">7</span> <span class="nt">&lt;/figure&gt;</span></code></pre></div>
+
+<p>I can target this using JQuery. In parts, here is the code I wrote:</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="lineno"> 1</span> <span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+<span class="lineno"> 2</span>   <span class="kd">var</span> <span class="nx">$viewportWidth</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">width</span><span class="p">();</span>
+<span class="lineno"> 3</span>   <span class="k">if</span> <span class="p">(</span><span class="nx">$viewportWidth</span> <span class="o">&lt;</span> <span class="mi">1024</span> <span class="o">&amp;&amp;</span> <span class="nx">$viewportWidth</span> <span class="o">&gt;</span> <span class="mi">640</span> <span class="p">){</span>
+<span class="lineno"> 4</span>     <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.gallery-icon &gt; a&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+<span class="lineno"> 5</span>       <span class="k">this</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;-medium.jpg&#39;</span><span class="p">);</span>
+<span class="lineno"> 6</span>     <span class="p">});</span>
+<span class="lineno"> 7</span>   <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">$viewportWidth</span> <span class="o">&lt;</span> <span class="mi">640</span><span class="p">){</span>
+<span class="lineno"> 8</span>     <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.gallery-icon &gt; a&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+<span class="lineno"> 9</span>       <span class="k">this</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;-small.jpg&#39;</span><span class="p">);</span>
+<span class="lineno">10</span>     <span class="p">});</span>
+<span class="lineno">11</span>   <span class="p">}</span></code></pre></div>
+
+<p>This first section checks the size of the screen on the first load of the page and changes the link accordingly. Then we get into the resizing magic:</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="lineno"> 1</span> <span class="kd">var</span> <span class="nx">$vwBeforeResize</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">width</span><span class="p">();</span>
+<span class="lineno"> 2</span>   <span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">resize</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+<span class="lineno"> 3</span>     <span class="nx">$vwAfterResize</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">width</span><span class="p">();</span>
+<span class="lineno"> 4</span>     <span class="c1">//First check for a large screen</span>
+<span class="lineno"> 5</span>     <span class="k">if</span> <span class="p">(</span><span class="nx">$vwBeforeResize</span> <span class="o">&gt;</span> <span class="mi">1024</span> <span class="o">&amp;&amp;</span> <span class="nx">$vwAfterResize</span> <span class="o">&gt;</span> <span class="mi">640</span><span class="p">){</span>
+<span class="lineno"> 6</span>       <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.gallery-icon &gt; a&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+<span class="lineno"> 7</span>         <span class="k">this</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;-medium.jpg&#39;</span><span class="p">);</span>
+<span class="lineno"> 8</span>       <span class="p">});</span>
+<span class="lineno"> 9</span>     <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">$vwBeforeResize</span> <span class="o">&gt;</span> <span class="mi">1024</span> <span class="o">&amp;&amp;</span> <span class="nx">$vwAfterResize</span> <span class="o">&lt;</span> <span class="mi">640</span><span class="p">){</span>
+<span class="lineno">10</span>         <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.gallery-icon &gt; a&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+<span class="lineno">11</span>         <span class="k">this</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;-small.jpg&#39;</span><span class="p">);</span>
+<span class="lineno">12</span>         <span class="p">});</span>
+<span class="lineno">13</span>       <span class="p">}</span>
+<span class="lineno">14</span> 
+<span class="lineno">15</span>         <span class="c1">//Then check for a medium screen</span>
+<span class="lineno">16</span>     <span class="k">if</span> <span class="p">(</span><span class="nx">$vwBeforeResize</span> <span class="o">&gt;</span> <span class="mi">640</span> <span class="o">&amp;&amp;</span> <span class="nx">$vwAfterResize</span> <span class="o">&gt;</span> <span class="mi">1024</span><span class="p">){</span>
+<span class="lineno">17</span>       <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.gallery-icon &gt; a&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+<span class="lineno">18</span>         <span class="k">this</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;-medium.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;.jpg&#39;</span><span class="p">);</span>
+<span class="lineno">19</span>       <span class="p">});</span>
+<span class="lineno">20</span>     <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">$vwBeforeResize</span> <span class="o">&gt;</span> <span class="mi">640</span> <span class="o">&amp;&amp;</span> <span class="nx">$vwAfterResize</span> <span class="o">&lt;</span> <span class="mi">640</span><span class="p">){</span>
+<span class="lineno">21</span>         <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.gallery-icon &gt; a&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+<span class="lineno">22</span>         <span class="k">this</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;-medium.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;-small.jpg&#39;</span><span class="p">);</span>
+<span class="lineno">23</span>         <span class="p">});</span>
+<span class="lineno">24</span>       <span class="p">}</span>        
+<span class="lineno">25</span> 
+<span class="lineno">26</span>     <span class="c1">//Then check for a small screen</span>
+<span class="lineno">27</span>     <span class="k">if</span> <span class="p">(</span><span class="nx">$vwBeforeResize</span> <span class="o">&lt;</span> <span class="mi">640</span> <span class="o">&amp;&amp;</span> <span class="nx">$vwAfterResize</span> <span class="o">&gt;</span> <span class="mi">1024</span><span class="p">){</span>
+<span class="lineno">28</span>       <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.gallery-icon &gt; a&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+<span class="lineno">29</span>         <span class="k">this</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;-small.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;.jpg&#39;</span><span class="p">);</span>
+<span class="lineno">30</span>       <span class="p">});</span>
+<span class="lineno">31</span>     <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">$vwBeforeResize</span> <span class="o">&lt;</span> <span class="mi">640</span> <span class="o">&amp;&amp;</span> <span class="nx">$vwAfterResize</span> <span class="o">&gt;</span> <span class="mi">640</span><span class="p">){</span>
+<span class="lineno">32</span>         <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.gallery-icon &gt; a&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+<span class="lineno">33</span>         <span class="k">this</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;-small.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;-medium.jpg&#39;</span><span class="p">);</span>
+<span class="lineno">34</span>         <span class="p">});</span>
+<span class="lineno">35</span>       <span class="p">}</span>
+<span class="lineno">36</span>     <span class="nx">$vwBeforeResize</span> <span class="o">=</span> <span class="nx">$vwAfterResize</span><span class="p">;</span>
+<span class="lineno">37</span>       <span class="p">});</span>
+<span class="lineno">38</span>     <span class="p">});</span></code></pre></div>
+
+<p>First we save the screen size in a variable to use in the resize function. Then, after the screen is resized we first check to see if it’s now a large size, a medium size, then a small size.  Then we compare the size the screen was before the resize event (the $vwBeforeResize value) to the size it is after the resize event ($vwAfterResize) and replace the end of the attachment link accordingly. Finally we have to assign the $vwAfterResize value to the $vwBeforeResize variable, so that if the screen is resized again, we have the current size. </p>
+
+<p>Whew. Now, an appropriately sized image will load in the lightbox, based on your screen size. </p>
+
+<p>I want to automate this further, and if I can find a way to make WordPress automatically append “-medium” and “-small” to the end of the filenames, I’ll be very happy. If you know WordPress well and have a solution, I’d love to have it!</p>
+
+  </article>
+
+</div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="container">
+
+    <h2 class="footer-heading">Michael Brown</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+        <li>Michael Brown</li>
+        <li><a href="mailto:michaelfbrown.88@gmail.com">michaelfbrown.88@gmail.com</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/mfbrown">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">mfbrown</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://twitter.com/mfbrown">
+            <span class="icon twitter">
+              <svg version="1.1" class="twitter-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill="#C2C2C2" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27
+                c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767
+                c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206
+                C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271
+                c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469
+                c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+              </svg>
+            </span>
+            <span class="username">mfbrown</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">I'm a front end developer in Washington, D.C. I write CSS for <a href='http://www.jibe.com'>Jibe</a> and learn something new every day.</p>
+    </div>
+
+  </div>
+
+</footer>
+
+
+    </body>
+</html>

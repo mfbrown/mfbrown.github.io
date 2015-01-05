@@ -1,0 +1,19 @@
+.post-list-title {
+	display: block;	
+}
+
+.post-link {
+	display: inline-block;
+	font-size: 1.6rem;
+	text-decoration: none;	
+}
+
+.posts {
+	li {
+		margin-bottom: $gutter-width * 3;
+	}
+}
+
+.rss-subscribe {
+	font-size: 0.75em;
+}

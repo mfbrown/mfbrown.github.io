@@ -1,0 +1,55 @@
+@font-face {
+	font-family: Source-Sans-Bold;
+	src: url('../assets/fonts/source-sans-pro/SourceSansPro-Bold.otf');
+}
+
+@font-face {
+	font-family: Source-Sans-Light;
+	src: url('../assets/fonts/source-sans-pro/SourceSansPro-Light.otf');
+}
+
+$header-font: "Source-Sans-Bold";
+$body-font: "Lato", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: 500;
+	font-family: $header-font;
+}
+
+h1 {
+	font-size: 180%;
+}
+
+h5 {
+	font-size: 0.9rem;
+}
+
+h6 {
+	font-size: 0.8rem;
+}
+
+
+p,
+ul,
+a {
+	font-family: $body-font;
+}
+
+blockquote {
+	font-family: "Source-Sans-Light", $body-font;
+}
+
+p,
+ul {
+	font-weight: 300;
+}
+
+a {
+	font-weight: 400;
+}
+

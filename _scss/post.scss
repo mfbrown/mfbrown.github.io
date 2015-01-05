@@ -1,0 +1,19 @@
+.post {
+	@extend .container;
+}
+
+p {
+	line-height: 1.5rem;
+	// text-indent: 1em;
+	@include bp(medium){
+		font-size: 1.2rem;
+	}
+
+}
+
+blockquote {
+	padding-left: 15px;
+	border-left: 3px solid lightgrey;
+	margin-left: 1em;
+	font-size: 1.5rem;
+}
