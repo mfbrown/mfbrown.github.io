@@ -4,7 +4,6 @@
 
 p {
 	line-height: 1.5rem;
-	// text-indent: 1em;
 	@include bp(medium){
 		font-size: 1.2rem;
 	}

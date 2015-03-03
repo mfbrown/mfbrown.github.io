@@ -15,7 +15,7 @@
 
 .site-footer .column { float: left; margin-bottom: 15px; }
 
-.footer-col-1 {
+.col-third {
   width: 100%;
   @include bp(small){
     width: 270px; /*fallback*/

@@ -1,3 +1,6 @@
+// Borrowed from http://css-tricks.com/conditional-media-query-mixins/ 
+// Following breakpoint variables
+
 @mixin bp($point) {
   @if $point == vsmall {
     @media (min-width: 40em) { @content; }

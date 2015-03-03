@@ -6,6 +6,8 @@ body {
 	font-size: 100%;	
 }
 
+
+// Flexbox the body so we can have a sticky footer without haxx
 .site {
 	min-height: 100vh;
 	flex-direction: column;

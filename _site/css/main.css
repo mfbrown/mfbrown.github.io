@@ -428,7 +428,7 @@ a {
   border-radius: 3px; }
 
 .post pre.terminal code {
-  background-color: #333; }
+  background-color: #404040; }
 
 /* Syntax highlighting styles */
 /* ----------------------------------------------------------*/
@@ -774,10 +774,10 @@ a {
   float: left;
   margin-bottom: 15px; }
 
-.footer-col-1 {
+.col-third {
   width: 100%; }
   @media (min-width: 48em) {
-    .footer-col-1 {
+    .col-third {
       width: 270px;
       /*fallback*/
       width: calc(33% - 0.625em);
