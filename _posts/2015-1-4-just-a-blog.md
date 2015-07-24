@@ -2,7 +2,7 @@
 layout: post
 title:  "Just a Blog For Now"
 date:   2015-1-5
-categories: blog, jekyll
+categories: blog jekyll
 ---
 
 ##My New Site

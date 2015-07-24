@@ -5,8 +5,8 @@
     <description>I&#39;m a front end developer in Washington, D.C. I write CSS for &lt;a href=&#39;http://www.jibe.com&#39;&gt;Jibe&lt;/a&gt; and learn something new every day.</description>
     <link>http://mfbrown.github.io/</link>
     <atom:link href="http://mfbrown.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 18 Feb 2015 07:58:29 -0500</pubDate>
-    <lastBuildDate>Wed, 18 Feb 2015 07:58:29 -0500</lastBuildDate>
+    <pubDate>Thu, 23 Jul 2015 21:09:40 -0400</pubDate>
+    <lastBuildDate>Thu, 23 Jul 2015 21:09:40 -0400</lastBuildDate>
     <generator>Jekyll v2.2.0</generator>
     
       <item>
@@ -14,15 +14,15 @@
         <description>&lt;h1 id=&quot;section&quot;&gt;#&lt;/h1&gt;
 </description>
         <pubDate>Wed, 18 Feb 2015 00:00:00 -0500</pubDate>
-        <link>http://mfbrown.github.io/less,/sass,/scss,/css/2015/02/18/Less-and-Sass/</link>
-        <guid isPermaLink="true">http://mfbrown.github.io/less,/sass,/scss,/css/2015/02/18/Less-and-Sass/</guid>
+        <link>http://mfbrown.github.io/blog/2015/02/18/Less-and-Sass/</link>
+        <guid isPermaLink="true">http://mfbrown.github.io/blog/2015/02/18/Less-and-Sass/</guid>
         
         
-        <category>less,</category>
+        <category>less</category>
         
-        <category>sass,</category>
+        <category>sass</category>
         
-        <category>scss,</category>
+        <category>scss</category>
         
         <category>css</category>
         
@@ -39,11 +39,11 @@
 &lt;p&gt;In the meantime, read an old post from my last blog about WordPress galleries.&lt;/p&gt;
 </description>
         <pubDate>Mon, 05 Jan 2015 00:00:00 -0500</pubDate>
-        <link>http://mfbrown.github.io/blog,/jekyll/2015/01/05/just-a-blog/</link>
-        <guid isPermaLink="true">http://mfbrown.github.io/blog,/jekyll/2015/01/05/just-a-blog/</guid>
+        <link>http://mfbrown.github.io/blog/2015/01/05/just-a-blog/</link>
+        <guid isPermaLink="true">http://mfbrown.github.io/blog/2015/01/05/just-a-blog/</guid>
         
         
-        <category>blog,</category>
+        <category>blog</category>
         
         <category>jekyll</category>
         
@@ -133,13 +133,13 @@
 &lt;p&gt;I want to automate this further, and if I can find a way to make WordPress automatically append “-medium” and “-small” to the end of the filenames, I’ll be very happy. If you know WordPress well and have a solution, I’d love to have it!&lt;/p&gt;
 </description>
         <pubDate>Sun, 04 Jan 2015 00:00:00 -0500</pubDate>
-        <link>http://mfbrown.github.io/wordpress,/rwd,/jquery/2015/01/04/responsive-wordpress-gallery/</link>
-        <guid isPermaLink="true">http://mfbrown.github.io/wordpress,/rwd,/jquery/2015/01/04/responsive-wordpress-gallery/</guid>
+        <link>http://mfbrown.github.io/blog/2015/01/04/responsive-wordpress-gallery/</link>
+        <guid isPermaLink="true">http://mfbrown.github.io/blog/2015/01/04/responsive-wordpress-gallery/</guid>
         
         
-        <category>wordpress,</category>
+        <category>wordpress</category>
         
-        <category>rwd,</category>
+        <category>rwd</category>
         
         <category>jquery</category>
         

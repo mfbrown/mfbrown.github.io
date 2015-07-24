@@ -2,7 +2,7 @@
 layout: post
 title:  "Making a WordPress Gallery Responsive"
 date:   2015-1-4
-categories: wordpress, rwd, jquery
+categories: wordpress rwd jquery
 ---
 
 I've been looking for a good responsive WordPress gallery solution as a last step towards finishing this portfolio I've been working on. There are plenty of responsive image solutions for WordPress, but as far as I can tell, they are mostly applicable to single images within a post and less so for a WordPress created gallery. I didn't find a great solution as a plugin, so I decided to build my own. Here's what I've made: 
