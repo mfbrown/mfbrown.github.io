@@ -1,0 +1,46 @@
+html {
+	background: whitesmoke;
+}
+
+body {
+	font-size: 100%;	
+}
+
+
+// Flexbox the body so we can have a sticky footer without haxx
+.site {
+	min-height: 100vh;
+	flex-direction: column;
+	display: flex;	
+}
+
+.page-content {
+	flex: 1 0 auto;
+}
+
+// Dont add more to this. Using as extend for posts
+.container {
+	@include clearfix;
+	padding-left: 15px;
+	padding-right: 15px;
+	@include bp(large) {
+		width: 970px;
+		margin-right: auto;
+		margin-left: auto;
+	}
+	@include bp(xlarge) {
+		width: 1000px;	
+	}
+}
+
+ul {
+	list-style-type: none;
+	padding-left: 0;
+}
+
+a {
+	color: lighten($dark-blue, 10%);
+	&:visited {
+		color: $dark-blue;	
+	}
+}
