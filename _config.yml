@@ -15,7 +15,7 @@
 # in the templates via {{ site.myvariable }}.
 title: Michael Brown
 email: mb@mfbrown.me
-description: "I'm a product manager based in NYC.<br>Currently: iCIMS. Previously: Jibe and Lifion.<br>I learn something new every day."
+description: ""
 baseurl: ""
 url: "http://mfbrown.github.io"
 twitter_username: mfbrown
