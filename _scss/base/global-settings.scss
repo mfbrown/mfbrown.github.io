@@ -142,6 +142,10 @@ button.fides-banner-button.fides-banner-button-secondary {
 	background-color: #5b301d;
 }
 
+#fides-consent-content p {
+	font-family: Arial, Helvetica, sans-serif !important;
+}
+
 @media screen and (max-width: 768px) { #fides-banner div#fides-banner-inner div#fides-button-group {
 		flex-direction: column-reverse;
 	}
