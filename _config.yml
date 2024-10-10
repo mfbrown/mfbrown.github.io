@@ -13,13 +13,13 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: Michael Brown
-email: mb@mfbrown.me
+title: Fides Properties Examples
+email: support@ethyca.com
 description: ""
 baseurl: ""
-url: "http://mfbrown.github.io"
-twitter_username: mfbrown
-github_username:  mfbrown
+# url: "http://mfbrown.githubio"
+# twitter_username: mfbrown
+# github_username:  mfbrown
 
 # Build settings
 markdown: kramdown
