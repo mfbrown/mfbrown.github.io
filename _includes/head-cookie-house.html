@@ -1,0 +1,50 @@
+<head class="head-2">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="{{ site.description }}">
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+    <script async='true' src='https://privacy-google-cmp-test.fides-staging.ethyca.com/fides.js'></script>
+    <script>Fides.gtm();</script>
+    <script>
+        // Define dataLayer and the gtag function.
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+      
+        // Set default consent to 'denied' as a placeholder
+        // Determine actual values based on your own requirements
+        gtag('consent', 'default', {
+          'ad_storage': 'denied',
+          'ad_user_data': 'denied',
+          'ad_personalization': 'denied',
+          'analytics_storage': 'denied'
+        });
+      </script>      
+    <script>window['gtag_enable_tcf_support'] = true</script>
+        <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-5KZDD6S');</script>
+<!-- End Google Tag Manager -->
+    <!-- <script>
+        window.mv = {};
+        window.mv.fides_overrides = {
+            fides_override_language: "en",
+            fides_title: "This is an overridden title!",
+            fides_description: "These values are provided by the <strong>hosting</strong> page, not the experience config! Read our <a href='https://ethyca.com/privacy-policy'>Privacy Policy</a>",
+            fides_privacy_policy_url: "http://localhost:4000/privacy",
+            fides_primary_color: "tomato",
+            fides_string: "CP188cAP188cAH7ACAENAyEsAP_gAGAAACiQJvMR9G9GRSFj8H53IMs0II0PwVhAakAhBgCAE-ABCJOEPIwUhCAwAA3CIiACGRIAODYAAAEAHAAQQEAAYIABIADMAEAYAABKIABAAAIBIEAQAAwAgAAgEAAAgGAEAAQBiAQNAZIARMyAggEGEVAQKAAAAAAAAgAAAAAAQAAAQAAIACgAAAAAAAAAAAAAQBAIAAAAAAAAAAAAAAAAABBN4AMg0IiAAsiAkIJAgigAAiCAIACAAAAAAQEEAAAQIAhYGAAoQEQAAAQAAAACAABAQAAAAAAAEAAAgACBAABAAFAAAAAAABAAAIAAAAJAACAAEAEAAEAAAAAAAAgACAMAAIAAIACAgQAAIEAAIAARAAAAAAAAAAAAAAAAAACAABAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAIAAA.YAAAAAAAAAAA,1~7.326.1205.89.440.1651.11.1799.2973.162.2440.184.1097.144.1733.1968.2684.3019.3163.986.153.2577.1456.1671.2225.2571.448.1827.259.2510.2373.350.1225.3162.2856.2846.2997.348.2850.272.2886.1875.202.1286.2663.228.230.1143.3017.167.550.1838.2808.1703.70.46.1166.12.211.1735.66.2569.1810.2039.725.2677.3033.3128.2768.1415.2572.1967.39.62.108.149.192.221.253.327.338.415.482.503.505.588.780.981.1092.1095.1126.1171.1178.1329.1509.1516.1558.1579.1832.2103.2316.2411.2595.2642.2710.2729.2767.2778.2779.2786.2867.2887.2912.2913.2914.2917.2922.2923.2942.2945.2947.2949.2950.2956.2968.2970.2977.2979.2983.3000.3002.3008.3009.3024.3034.3048.3052.3053.3059.3060.3076.3077.3078.3089.3093.3094.3112.3120.3121.3124.3126.3149.3159.3173.3177",
+            fides_disable_banner: true
+        }; -->
+    <!-- // document.cookie = "fides_consent={\"consent\":{},\"identity\":{\"fides_user_device_id\":\"0cd0ce9c-659a-4458-bb4c-29e92c267777\"},\"fides_meta\":{\"version\":\"0.9.0\",\"createdAt\":\"2024-05-01T13:24:44.755Z\",\"updatedAt\":\"2024-05-01T13:25:22.952Z\",\"consentMethod\":\"save\"},\"tcf_consent\":{\"system_consent_preferences\":{},\"system_legitimate_interests_preferences\":{}},\"fides_string\":\"CP188cAP188cAH7ACAENAyEsAP_gAGAAACiQJvMR9G9GRSFj8H53IMs0II0PwVhAakAhBgCAE-ABCJOEPIwUhCAwAA3CIiACGRIAODYAAAEAHAAQQEAAYIABIADMAEAYAABKIABAAAIBIEAQAAwAgAAgEAAAgGAEAAQBiAQNAZIARMyAggEGEVAQKAAAAAAAAgAAAAAAQAAAQAAIACgAAAAAAAAAAAAAQBAIAAAAAAAAAAAAAAAAABBN4AMg0IiAAsiAkIJAgigAAiCAIACAAAAAAQEEAAAQIAhYGAAoQEQAAAQAAAACAABAQAAAAAAAEAAAgACBAABAAFAAAAAAABAAAIAAAAJAACAAEAEAAEAAAAAAAAgACAMAAIAAIACAgQAAIEAAIAARAAAAAAAAAAAAAAAAAACAABAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAIAAA.YAAAAAAAAAAA,1~7.326.1205.89.440.1651.11.1799.2973.162.2440.184.1097.144.1733.1968.2684.3019.3163.986.153.2577.1456.1671.2225.2571.448.1827.259.2510.2373.350.1225.3162.2856.2846.2997.348.2850.272.2886.1875.202.1286.2663.228.230.1143.3017.167.550.1838.2808.1703.70.46.1166.12.211.1735.66.2569.1810.2039.725.2677.3033.3128.2768.1415.2572.1967.39.62.108.149.192.221.253.327.338.415.482.503.505.588.780.981.1092.1095.1126.1171.1178.1329.1509.1516.1558.1579.1832.2103.2316.2411.2595.2642.2710.2729.2767.2778.2779.2786.2867.2887.2912.2913.2914.2917.2922.2923.2942.2945.2947.2949.2950.2956.2968.2970.2977.2979.2983.3000.3002.3008.3009.3024.3034.3048.3052.3053.3059.3060.3076.3077.3078.3089.3093.3094.3112.3120.3121.3124.3126.3149.3159.3173.3177\",\"tcf_version_hash\":\"273494ed3703\"}" -->
+    <!-- </script> -->
+    <!-- Custom CSS -->
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ " /css/site.css" | prepend: site.baseurl }}" </head>

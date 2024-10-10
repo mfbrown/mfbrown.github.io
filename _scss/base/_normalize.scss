@@ -288,7 +288,7 @@ select {
  */
 
 button,
-html input[type="button"], /* 1 */
+// html input[type="button"], /* 1 */
 input[type="reset"],
 input[type="submit"] {
   -webkit-appearance: button; /* 2 */
@@ -299,10 +299,10 @@ input[type="submit"] {
  * Re-set default cursor for disabled elements.
  */
 
-button[disabled],
-html input[disabled] {
-  cursor: default;
-}
+// button[disabled],
+// html input[disabled] {
+//   cursor: default;
+// }
 
 /**
  * Remove inner padding and border in Firefox 4+.

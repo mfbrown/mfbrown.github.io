@@ -44,3 +44,105 @@ a {
 		color: $dark-blue;	
 	}
 }
+
+
+// #fides-tcf-banner-inner {
+// 	display: none;
+// }
+
+// button.fides-reject-all-button {
+// 	display: none;
+// }
+
+// div#fides-button-group {
+// 	justify-content: unset;
+	
+// }
+
+// div#fides-banner-inner div#fides-button-group {
+// 	flex-direction: column;
+// 	justify-content: center;
+// }
+
+// div#fides-banner-inner-container {
+// 	grid-template-columns: 3fr 1fr !important;
+// }
+
+// div.fides-banner-button-group {
+// 	width:100%;
+// }
+
+// button.fides-banner-button.fides-banner-button-primary {
+// 	font-size: 1rem;
+// 	width: 100%;
+// }
+
+.site-header.cookie-house-header {
+	background-color: #faf7f6;
+	border-top: none;
+}
+
+.cookie-house-logo {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 8px;
+}
+
+
+
+#fides-banner button.fides-banner-button.fides-banner-button-primary {
+	background-color: #5b301d;
+}
+
+#fides-banner button.fides-banner-button.fides-banner-button-secondary {
+	border-color: #5b301d;
+}
+
+#fides-banner button.fides-banner-button.fides-manage-preferences-button, div#fides-banner-inner .fides-privacy-policy, div.fides-i18n-pseudo-button {
+	padding: 8px 16px;
+}
+
+div#fides-banner {
+	border-color: #5b301d;
+	border-top: #5b301d !important;
+}
+
+div.fides-modal-content {
+	border-color: #5b301d !important;
+}
+
+
+button.fides-banner-button.fides-banner-button-primary {
+	background-color: #5b301d !important;
+}
+
+button.fides-banner-button.fides-banner-button-secondary {
+	border-color: #5b301d !important;
+}
+
+#fides-consent-content button.fides-banner-button.fides-banner-button-primary {
+	background-color: #5b301d;
+}
+
+#fides-consent-content button.fides-banner-button.fides-banner-button-primary:hover {
+	background-color: #5b301d;
+}
+
+#fides-consent-content .fides-tab-button[aria-selected=true] {
+	color: #5b301d;
+	border-bottom-color: #5b301d;
+}
+
+#fides-consent-content .fides-radio-button[aria-checked=true] {
+	background-color: #5b301d;
+}
+
+#fides-consent-content .fides-toggle .fides-toggle-input:checked+.fides-toggle-display {
+	background-color: #5b301d;
+}
+
+@media screen and (max-width: 768px) { #fides-banner div#fides-banner-inner div#fides-button-group {
+		flex-direction: column-reverse;
+	}
+}
