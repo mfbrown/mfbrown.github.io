@@ -5,14 +5,11 @@
 
     <body class="site">
 
-    {% include header.html %}
-
     <div class="page-content">
       {{ content }}
-      </div>
     </div>
 
-    {% include footer.html %}
+    <script src="{{ "/assets/js/split-flap.js" | prepend: site.baseurl }}"></script>
 
     </body>
 </html>

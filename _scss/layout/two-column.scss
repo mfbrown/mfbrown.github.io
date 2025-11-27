@@ -1,0 +1,141 @@
+// Override page-content styles for two-column layout
+.page-content {
+  padding: 0;
+  margin: 0;
+}
+
+.two-column-layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.left-column {
+  flex: 0 0 33%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $black;
+  border-right: none;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.initials {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.name-line {
+  display: flex;
+  align-items: baseline;
+  line-height: 1;
+  flex-wrap: wrap;
+}
+
+.letter-large {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 6rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.name-rest {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1;
+  perspective: 1000px;
+//   letter-spacing: -0.15em;
+}
+
+.flip-letter {
+  display: inline-block;
+  position: relative;
+  transform: rotateX(0deg);
+  transform-origin: center center;
+  color: transparent;
+  border: 1px solid #f5f5f538;
+  margin-right: -0.05em;
+  padding: 0 0.1em;
+  
+  &::before {
+    content: attr(data-char);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
+
+.right-column {
+  flex: 1;
+  padding: 8rem 10rem;
+  background-color: #ffffff;
+}
+
+.posts-container {
+  max-width: 600px;
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .two-column-layout {
+    flex-direction: column;
+  }
+  
+  .left-column {
+    flex: 0 0 auto;
+    height: auto;
+    position: relative;
+    padding: 2rem 0;
+  }
+  
+  .initials, .post-title-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .letter-large {
+    font-size: 3.5rem;
+  }
+  
+  .name-rest {
+    font-size: 1.75rem;
+  }
+  
+  .right-column {
+    padding: 2rem;
+  }
+  
+  .post-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .post-content {
+    font-size: 1rem;
+    
+    h1 {
+      font-size: 2rem;
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+    }
+    
+    h3 {
+      font-size: 1.25rem;
+    }
+  }
+}
+
