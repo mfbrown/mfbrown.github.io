@@ -13,9 +13,9 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: Fides Properties Examples
-email: support@ethyca.com
-description: ""
+title: Michael Brown
+email: mb@mfbrown.me
+description: "Michael Brown's personal blog about product management, AI, public transportation, aviation and more."
 baseurl: ""
 # url: "http://mfbrown.githubio"
 # twitter_username: mfbrown
