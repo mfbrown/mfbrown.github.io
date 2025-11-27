@@ -1,15 +1,12 @@
 @font-face {
-	font-family: Source-Sans-Bold;
-	src: url('../assets/fonts/source-sans-pro/SourceSansPro-Bold.otf');
+	font-family: 'Cormorant Garamond';
+	src: url('../assets/fonts/cormorant-garamond/CormorantGaramond-Regular.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
 }
 
-@font-face {
-	font-family: Source-Sans-Light;
-	src: url('../assets/fonts/source-sans-pro/SourceSansPro-Light.otf');
-}
-
-$header-font: "Source-Sans-Bold";
-$body-font: "Lato", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+$header-font: 'IBM Plex Mono', monospace;
+$body-font: 'Cormorant Garamond', serif;
 
 h1,
 h2,

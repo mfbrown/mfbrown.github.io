@@ -1,20 +1,34 @@
 ---
 layout: default
 ---
-<div class="container">
-
-  <div class="home">
-
-    <ul class="posts">
-      {% for post in site.posts %}
-        <li>
-          <span class="post-list-title"><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></span>
-          <span class="post-date">{{ post.date | date: "%b %-d, %Y" }}</span>
-        </li>
-      {% endfor %}
-    </ul>
-
-    <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
-
+<div class="two-column-layout">
+  
+  <div class="left-column">
+    <div class="initials">
+      <div class="name-line">
+        <span class="letter-large">M</span><span class="name-rest"><span class="flip-letter" data-char="I">I</span><span class="flip-letter" data-char="C">C</span><span class="flip-letter" data-char="H">H</span><span class="flip-letter" data-char="A">A</span><span class="flip-letter" data-char="E">E</span><span class="flip-letter" data-char="L">L</span></span>
+      </div>
+      <div class="name-line">
+        <span class="letter-large">B</span><span class="name-rest"><span class="flip-letter" data-char="R">R</span><span class="flip-letter" data-char="O">O</span><span class="flip-letter" data-char="W">W</span><span class="flip-letter" data-char="N">N</span></span>
+      </div>
+    </div>
   </div>
+
+  <div class="right-column">
+    <div class="posts-container">
+      <ul class="posts">
+        {% for post in site.posts %}
+          <li>
+            <span class="post-list-title">
+              <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+            </span>
+            <span class="post-date">{{ post.date | date: "%b %-d, %Y" }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+
+      <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+    </div>
+  </div>
+
 </div>
