@@ -99,9 +99,16 @@
   }
   
   .initials, .post-title-container {
-    flex-direction: row;
+    flex-direction: row !important;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  
+  .name-line, .title-line {
+    display: inline-flex !important;
+    width: auto !important;
+    margin: 0 !important;
   }
   
   .letter-large {

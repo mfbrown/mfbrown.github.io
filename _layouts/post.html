@@ -10,7 +10,7 @@ layout: default
       <div class="title-line">
         {% assign chars = word | split: '' %}
         <span class="name-rest">{%- for char in chars -%}<span class="flip-letter" data-char="{{ char | upcase }}">{{ char | upcase }}</span>{%- endfor -%}</span>
-      </div>
+      </div>{% unless forloop.last %} {% endunless %}
       {% endfor %}
     </div>
   </div>
