@@ -1,0 +1,83 @@
+// ==========================================================================
+// Accessibility Styles (WCAG 2.2 Compliance)
+// ==========================================================================
+
+// Screen-reader only class — visually hidden but accessible
+// WCAG 1.3.1 (Info and Relationships)
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Skip navigation link — WCAG 2.4.1 (Bypass Blocks)
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 1000;
+  padding: 0.75rem 1.5rem;
+  background-color: $black;
+  color: #fff;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.9rem;
+  text-decoration: none;
+
+  &:focus {
+    top: 0;
+    outline: 3px solid $tomato;
+    outline-offset: 2px;
+  }
+}
+
+// Focus indicators — WCAG 2.4.7 (Focus Visible)
+*:focus-visible {
+  outline: 3px solid $dark-blue;
+  outline-offset: 2px;
+}
+
+// Ensure links within dark backgrounds get appropriate focus color
+.left-column *:focus-visible {
+  outline-color: $tomato;
+}
+
+.site-title:focus-visible {
+  outline: 3px solid $dark-blue;
+  outline-offset: 4px;
+}
+
+// Color contrast fixes — WCAG 1.4.3 (Contrast Minimum)
+// .post-date was #999 on white (2.85:1) — now #767676 (4.54:1)
+.post-date {
+  color: #595959;
+}
+
+// Ensure post-content links are distinguishable — WCAG 1.4.1 (Use of Color)
+// Links must not rely on color alone; underline provides secondary indicator
+.post-content a {
+  text-decoration: underline;
+  text-decoration-color: rgba(68, 68, 68, 0.4);
+  text-underline-offset: 2px;
+
+  &:hover,
+  &:focus {
+    text-decoration-color: #444;
+  }
+}
+
+// Reduced motion — WCAG 2.3.1 (Three Flashes or Below Threshold)
+@media (prefers-reduced-motion: reduce) {
+  .flip-letter {
+    animation: none !important;
+
+    &::before {
+      animation: none !important;
+    }
+  }
+}

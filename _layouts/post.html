@@ -2,8 +2,8 @@
 layout: default
 ---
 <div class="two-column-layout">
-  
-  <div class="left-column">
+
+  <div class="left-column" aria-hidden="true">
     <div class="post-title-container">
       {% assign title_words = page.title | split: ' ' %}
       {% for word in title_words %}
@@ -21,7 +21,9 @@ layout: default
         <a href="{{ "/" | prepend: site.baseurl }}" class="back-link">← Back to home</a>
         <p class="post-date">{{ page.date | date: "%b %-d, %Y" }}</p>
       </div>
-      
+
+      <h1 class="sr-only">{{ page.title }}</h1>
+
       <article class="post-content">
         {{ content }}
       </article>
