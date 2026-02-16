@@ -2,8 +2,8 @@
 layout: default
 ---
 <div class="two-column-layout">
-  
-  <div class="left-column">
+
+  <div class="left-column" aria-hidden="true">
     <div class="initials">
       <div class="name-line">
         <span class="letter-large">M</span><span class="name-rest"><span class="flip-letter" data-char="I">I</span><span class="flip-letter" data-char="C">C</span><span class="flip-letter" data-char="H">H</span><span class="flip-letter" data-char="A">A</span><span class="flip-letter" data-char="E">E</span><span class="flip-letter" data-char="L">L</span></span>
@@ -16,6 +16,8 @@ layout: default
 
   <div class="right-column">
     <div class="posts-container">
+      <h1 class="sr-only">Michael Brown</h1>
+      <h2 class="sr-only">Posts</h2>
       <ul class="posts">
         {% for post in site.posts %}
           <li>

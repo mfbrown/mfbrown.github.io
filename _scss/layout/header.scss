@@ -25,9 +25,11 @@
 .site-nav {
   float: right;
   a {
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    &:hover,
+    &:focus {
+      text-decoration-color: currentColor;
     }
   }
 }

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
   {% include head.html %}
 
     <body class="site">
 
-    <div class="page-content">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <main id="main-content" class="page-content">
       {{ content }}
-    </div>
+    </main>
 
     <script src="{{ "/assets/js/split-flap.js" | prepend: site.baseurl }}"></script>
 

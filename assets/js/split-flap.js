@@ -1,5 +1,11 @@
 // Split-flap display animation with randomization
 document.addEventListener('DOMContentLoaded', function() {
+  // Respect prefers-reduced-motion (WCAG 2.3.1)
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (prefersReducedMotion.matches) {
+    return;
+  }
+
   const flipLetters = document.querySelectorAll('.flip-letter');
   const baseDelay = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--base-delay')) || 0;
   

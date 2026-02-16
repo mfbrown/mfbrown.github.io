@@ -50,19 +50,23 @@ blockquote {
 	font-family: 'IBM Plex Mono', monospace;
 	font-size: 0.9rem;
 	color: #444;
-	text-decoration: none;
+	text-decoration: underline;
+	text-decoration-color: transparent;
+	text-underline-offset: 2px;
 	font-weight: 500;
-	transition: color 0.2s ease;
+	transition: color 0.2s ease, text-decoration-color 0.2s ease;
 
-	&:hover {
+	&:hover,
+	&:focus {
 		color: #333;
+		text-decoration-color: #333;
 	}
 }
 
 .post-date {
 	font-family: 'IBM Plex Sans', sans-serif;
 	font-size: 0.9rem;
-	color: #999;
+	color: #595959;
 	margin: 0;
 }
 
@@ -150,12 +154,14 @@ blockquote {
 
 	a {
 		color: #444;
-		text-decoration: none;
-		border-bottom: 1px solid rgba(68, 68, 68, 0.3);
-		transition: border-color 0.2s ease;
+		text-decoration: underline;
+		text-decoration-color: rgba(68, 68, 68, 0.4);
+		text-underline-offset: 2px;
+		transition: text-decoration-color 0.2s ease;
 
-		&:hover {
-			border-bottom-color: #444;
+		&:hover,
+		&:focus {
+			text-decoration-color: #444;
 		}
 	}
 

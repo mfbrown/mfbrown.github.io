@@ -7,15 +7,19 @@
 	font-size: 1.6rem;
 	font-family: 'IBM Plex Sans', sans-serif;
 	font-weight: 500;
-	text-decoration: none;
+	text-decoration: underline;
+	text-decoration-color: transparent;
+	text-underline-offset: 3px;
 	color: $black;
-	
+	transition: text-decoration-color 0.2s ease;
+
 	&:visited {
 		color: $black;
 	}
-	
-	&:hover {
-		color: #444;
+
+	&:hover,
+	&:focus {
+		text-decoration-color: $black;
 	}
 }
 
@@ -33,13 +37,14 @@
 .rss-subscribe {
 	font-size: 0.75em;
 	font-family: 'IBM Plex Sans', sans-serif;
-	color: #666;
-	
+	color: #595959;
+
 	a {
 		color: $black;
-		text-decoration: none;
-		
-		&:hover {
+		text-decoration: underline;
+
+		&:hover,
+		&:focus {
 			color: #444;
 		}
 	}
