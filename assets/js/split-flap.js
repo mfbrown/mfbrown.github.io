@@ -1,5 +1,7 @@
 // Split-flap display animation with randomization
 document.addEventListener('DOMContentLoaded', function() {
+  startClock();
+
   // Respect prefers-reduced-motion (WCAG 2.3.1)
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (prefersReducedMotion.matches) {
@@ -89,4 +91,27 @@ document.addEventListener('DOMContentLoaded', function() {
     document.head.appendChild(styleSheet);
   });
 });
+
+// The board's live clock. Not decorative motion, so it runs regardless of
+// prefers-reduced-motion. Renders in the visitor's local time.
+function startClock() {
+  const clocks = document.querySelectorAll('[data-clock]');
+  if (!clocks.length) {
+    return;
+  }
+
+  const render = () => {
+    const now = new Date();
+    const time =
+      String(now.getHours()).padStart(2, '0') +
+      ':' +
+      String(now.getMinutes()).padStart(2, '0');
+    clocks.forEach((clock) => {
+      clock.textContent = time;
+    });
+  };
+
+  render();
+  setInterval(render, 15000);
+}
 

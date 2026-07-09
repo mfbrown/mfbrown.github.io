@@ -1,0 +1,11 @@
+{%- comment -%}
+One row of split-flap tiles, one tile per character. Uppercased: the board has
+no lowercase flaps.
+
+Usage: {% include flip-line.html text=word %}
+{%- endcomment -%}
+{%- assign chars = include.text | split: '' -%}
+{%- for char in chars -%}
+  {%- assign glyph = char | upcase -%}
+  <span class="flip-letter" data-char="{{ glyph }}">{{ glyph }}</span>
+{%- endfor -%}

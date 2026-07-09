@@ -1,7 +1,3 @@
-.post {
-	@extend .container;
-}
-
 p {
 	line-height: 1.5rem;
 
@@ -11,70 +7,69 @@ p {
 
 }
 
-blockquote {
-	padding-left: 15px;
-	border-left: 3px solid lightgrey;
-	margin-left: 1em;
-	font-size: 1.5rem;
-}
-
 // Post-specific styles for two-column layout
-.post-title-container {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	gap: 1.5rem;
-}
-
-.title-line {
-	display: flex;
-	align-items: baseline;
-	line-height: 1;
-	flex-wrap: wrap;
-}
-
 .post-article-container {
 	max-width: 800px;
 }
 
 .post-meta {
-	margin-bottom: 4rem;
-	padding-bottom: 2rem;
-	border-bottom: 1px solid #e5e5e5;
+	margin-bottom: 1.75rem;
+	padding-bottom: 1.25rem;
+	border-bottom: 1px solid $board-rule;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
 
 .back-link {
-	font-family: 'IBM Plex Mono', monospace;
-	font-size: 0.9rem;
-	color: #444;
+	@include board-label(12px, 0.1em);
+	// inline-block + padding lifts the hit area from 16px to 24px (WCAG 2.5.8).
+	display: inline-block;
+	padding: 4px 0;
+	color: $board-amber;
 	text-decoration: underline;
 	text-decoration-color: transparent;
-	text-underline-offset: 2px;
-	font-weight: 500;
-	transition: color 0.2s ease, text-decoration-color 0.2s ease;
+	text-underline-offset: 3px;
+	transition: text-decoration-color 0.2s ease;
+
+	&:visited {
+		color: $board-amber;
+	}
 
 	&:hover,
 	&:focus {
-		color: #333;
-		text-decoration-color: #333;
+		text-decoration-color: $board-amber;
 	}
 }
 
 .post-date {
-	font-family: 'IBM Plex Sans', sans-serif;
-	font-size: 0.9rem;
-	color: #595959;
+	@include board-label(12px, 0.06em);
+	color: $board-dim;
 	margin: 0;
 }
 
+.post-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 0 0 2rem;
+}
+
+.tag {
+	@include board-label(10px, 0.08em);
+	padding: 3px 7px;
+	border: 1px solid rgba($board-dim, 0.35);
+	border-radius: 3px;
+	color: $board-dim;
+	white-space: nowrap;
+}
+
+// Prose.
 .post-content {
 	font-family: 'Cormorant Garamond', serif;
-	font-size: 1.25rem;
-	line-height: 1.8;
-	color: #333;
+	font-size: 1.375rem;
+	line-height: 1.78;
+	color: $board-body;
 
 	h1,
 	h2,
@@ -82,30 +77,32 @@ blockquote {
 	h4,
 	h5,
 	h6 {
-		font-family: 'IBM Plex Sans', sans-serif;
+		font-family: $header-font;
 		margin-top: 2.5rem;
 		margin-bottom: 1rem;
 		line-height: 1.3;
-		color: #111;
+		color: $board-text;
 	}
 
 	h1 {
-		font-size: 2.5rem;
+		font-size: 2rem;
 	}
 
 	h2 {
-		font-size: 2rem;
-		border-bottom: 1px solid #e5e5e5;
+		font-size: 1.6rem;
+		border-bottom: 1px solid $board-rule;
 		padding-bottom: 0.5rem;
 	}
 
 	h3 {
-		font-size: 1.5rem;
+		font-size: 1.3rem;
 	}
 
 	p {
 		font-family: 'Cormorant Garamond', serif;
-		margin-bottom: 1.5rem;
+		font-size: inherit;
+		line-height: inherit;
+		margin: 0 0 1.375rem;
 	}
 
 	ul,
@@ -113,6 +110,7 @@ blockquote {
 		font-family: 'Cormorant Garamond', serif;
 		margin-bottom: 1.5rem;
 		padding-left: 2rem;
+		list-style: revert;
 
 		li {
 			margin-bottom: 0.5rem;
@@ -123,23 +121,24 @@ blockquote {
 		font-family: 'Cormorant Garamond', serif;
 		margin: 2rem 0;
 		padding: 1rem 1.5rem;
-		border-left: 4px solid $black;
-		background-color: #f9f9f9;
+		border-left: 3px solid $board-amber;
+		background-color: rgba($board-amber, 0.05);
 		font-style: italic;
-		color: #555;
+		color: $board-dim;
 	}
 
 	code {
-		background-color: #f5f5f5;
+		background-color: rgba(255, 255, 255, 0.06);
 		padding: 0.2rem 0.4rem;
 		border-radius: 3px;
-		font-family: 'IBM Plex Mono', monospace;
-		font-size: 0.9em;
-		color: $black;
+		font-family: $header-font;
+		font-size: 0.8em;
+		color: $board-text;
 	}
 
 	pre {
-		background-color: #f5f5f5;
+		background-color: $board-panel;
+		border: 1px solid $board-seam;
 		padding: 1.5rem;
 		border-radius: 5px;
 		overflow-x: auto;
@@ -148,20 +147,24 @@ blockquote {
 		code {
 			background-color: transparent;
 			padding: 0;
-			color: #333;
+			color: $board-body;
 		}
 	}
 
 	a {
-		color: #444;
+		color: $board-amber;
 		text-decoration: underline;
-		text-decoration-color: rgba(68, 68, 68, 0.4);
+		text-decoration-color: rgba($board-amber, 0.4);
 		text-underline-offset: 2px;
 		transition: text-decoration-color 0.2s ease;
 
+		&:visited {
+			color: $board-amber;
+		}
+
 		&:hover,
 		&:focus {
-			text-decoration-color: #444;
+			text-decoration-color: $board-amber;
 		}
 	}
 
