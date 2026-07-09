@@ -23,6 +23,9 @@ p {
 
 .back-link {
 	@include board-label(12px, 0.1em);
+	// inline-block + padding lifts the hit area from 16px to 24px (WCAG 2.5.8).
+	display: inline-block;
+	padding: 4px 0;
 	color: $board-amber;
 	text-decoration: underline;
 	text-decoration-color: transparent;

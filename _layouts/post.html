@@ -16,7 +16,7 @@ layout: default
   <div class="right-column right-column--article">
     <div class="post-article-container">
       <div class="post-meta">
-        <a href="{{ "/" | prepend: site.baseurl }}" class="back-link">← {{ site.board.title }}</a>
+        <a href="{{ "/" | prepend: site.baseurl }}" class="back-link"><span aria-hidden="true">←</span> <span class="sr-only">Back to </span>{{ site.board.title }}</a>
         <p class="post-date">{% include post-code.html post=page %} · FILED {{ page.date | date: "%b %-d, %Y" | upcase }}</p>
       </div>
 

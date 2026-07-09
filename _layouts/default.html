@@ -7,7 +7,9 @@
 
     <a class="skip-link" href="#main-content">Skip to main content</a>
 
-    <main id="main-content" class="page-content">
+    <!-- tabindex="-1" so the skip link reliably moves focus here, not just the
+         scroll position (Safari and older WebKit don't focus <main> otherwise). -->
+    <main id="main-content" class="page-content" tabindex="-1">
       {{ content }}
     </main>
 

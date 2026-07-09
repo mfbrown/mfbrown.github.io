@@ -15,4 +15,4 @@ Usage: {% include status-badge.html post=post %}
 {%- else -%}
   {%- assign status = 'on-time' -%}
 {%- endif -%}
-<span class="status status--{{ status }}">{{ status | replace: '-', ' ' | upcase }}</span>
+<span class="status status--{{ status }}"><span class="sr-only">Status </span>{{ status | replace: '-', ' ' | upcase }}</span>

@@ -117,7 +117,8 @@ $board-statuses: (
 // No top rule here: the last board row's border-bottom already closes the table,
 // and a second line 18px under it reads as a mistake.
 .legend {
-  margin-top: 29px;
+  // 24px + the summary's 5px padding keeps the label where it was.
+  margin-top: 24px;
 }
 
 .legend-summary {
@@ -126,6 +127,8 @@ $board-statuses: (
   gap: 8px;
   cursor: pointer;
   list-style: none;
+  // The label is only 15px tall; pad the hit area to 25px for WCAG 2.5.8.
+  padding: 5px 0;
 
   &::-webkit-details-marker {
     display: none;

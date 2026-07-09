@@ -35,14 +35,17 @@ layout: default
         <span class="board-header-status">STATUS</span>
       </div>
 
-      <ul class="board-rows">
+      <!-- role="list" survives `list-style: none`, which strips list semantics
+           in Safari/VoiceOver. The column headers above are decorative, so each
+           cell carries its own visually-hidden label. -->
+      <ul class="board-rows" role="list">
         {% for post in site.posts %}
           <li>
             <a class="board-row" href="{{ post.url | prepend: site.baseurl }}">
-              <span class="cell-code">{% include post-code.html post=post %}</span>
+              <span class="cell-code"><span class="sr-only">Code </span>{% include post-code.html post=post %}</span>
               <span class="cell-title">{{ post.title }}</span>
-              <span class="cell-filed">{{ post.date | date: "%b %-d, %Y" }}</span>
-              <span class="cell-read">{% include read-time.html post=post %}</span>
+              <span class="cell-filed"><span class="sr-only">Filed </span>{{ post.date | date: "%b %-d, %Y" }}</span>
+              <span class="cell-read"><span class="sr-only">Read time </span>{% include read-time.html post=post %}</span>
               {% include status-badge.html post=post %}
             </a>
           </li>
@@ -65,7 +68,7 @@ layout: default
         </div>
       </details>
 
-      <p class="rss-subscribe">SUBSCRIBE <a href="{{ "/feed.xml" | prepend: site.baseurl }}">→ RSS</a></p>
+      <p class="rss-subscribe">SUBSCRIBE <a href="{{ "/feed.xml" | prepend: site.baseurl }}"><span aria-hidden="true">→</span> <span class="sr-only">Subscribe via </span>RSS</a></p>
     </div>
   </div>
 
