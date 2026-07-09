@@ -1,26 +1,30 @@
 ---
 layout: default
 ---
+{% assign topic = site.board.topics[page.topic] %}
 <div class="two-column-layout">
 
-  <div class="left-column" aria-hidden="true">
+  <div class="left-column left-column--article" aria-hidden="true">
     <div class="post-title-container">
       {% assign title_words = page.title | split: ' ' %}
       {% for word in title_words %}
-      <div class="title-line">
-        {% assign chars = word | split: '' %}
-        <span class="name-rest">{%- for char in chars -%}<span class="flip-letter" data-char="{{ char | upcase }}">{{ char | upcase }}</span>{%- endfor -%}</span>
-      </div>{% unless forloop.last %} {% endunless %}
+      <div class="title-line">{% include flip-line.html text=word %}</div>
       {% endfor %}
     </div>
   </div>
 
-  <div class="right-column">
+  <div class="right-column right-column--article">
     <div class="post-article-container">
       <div class="post-meta">
-        <a href="{{ "/" | prepend: site.baseurl }}" class="back-link">← Back to home</a>
-        <p class="post-date">{{ page.date | date: "%b %-d, %Y" }}</p>
+        <a href="{{ "/" | prepend: site.baseurl }}" class="back-link">← {{ site.board.title }}</a>
+        <p class="post-date">{% include post-code.html post=page %} · FILED {{ page.date | date: "%b %-d, %Y" | upcase }}</p>
       </div>
+
+      <p class="post-tags">
+        {% include status-badge.html post=page %}
+        {% if topic %}<span class="tag">{{ topic.label }}</span>{% endif %}
+        <span class="tag">{% include read-time.html post=page %} READ</span>
+      </p>
 
       <h1 class="sr-only">{{ page.title }}</h1>
 

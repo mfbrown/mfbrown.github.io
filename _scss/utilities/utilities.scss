@@ -1,8 +1,22 @@
-// Clearfix
-@mixin clearfix {
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+// A single split-flap tile. The hard stop at 49.3%/50.7% is the seam where the
+// two halves of a real flap meet.
+@mixin flap-tile {
+  background: linear-gradient(
+    180deg,
+    #212228 0 49.3%,
+    #040405 49.3% 50.7%,
+    #141519 50.7% 100%
+  );
+  border-radius: 4px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 2px 5px rgba(0, 0, 0, 0.6);
+}
+
+// Mono label: the small tracked-out caps used all over the board chrome.
+// $header-font comes from base/type.scss — mixin bodies resolve at @include
+// time, by which point base/ has been imported.
+@mixin board-label($size: 10px, $tracking: 0.16em) {
+  font-family: $header-font;
+  font-size: $size;
+  letter-spacing: $tracking;
 }

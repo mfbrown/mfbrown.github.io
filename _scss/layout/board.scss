@@ -1,0 +1,277 @@
+//=========================================
+// The board — the post table on the home page
+//=========================================
+
+$board-columns: 58px 1fr 92px 58px 92px;
+$board-gap: 14px;
+
+// Slugs match those emitted by _includes/status-badge.html.
+$board-statuses: (
+  new: $status-new,
+  updated: $status-updated,
+  on-time: $status-ontime,
+);
+
+.board-header {
+  display: grid;
+  grid-template-columns: $board-columns;
+  gap: $board-gap;
+  padding-bottom: 11px;
+  border-bottom: 1px solid $board-rule;
+
+  span {
+    @include board-label(10px, 0.16em);
+    color: $board-dimmer;
+  }
+}
+
+.board-header-status {
+  text-align: right;
+}
+
+.board-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    margin: 0;
+  }
+}
+
+.board-row {
+  display: grid;
+  grid-template-columns: $board-columns;
+  gap: $board-gap;
+  align-items: center;
+  padding: 14px 8px;
+  margin: 0 -8px;
+  border-bottom: 1px solid $board-rule-faint;
+  border-radius: 3px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    background-color: $board-row-hover;
+  }
+
+  // Source order matches column order, so cells auto-place on desktop. The
+  // status pill is the only one that needs pushing to its column's right edge.
+  .status {
+    justify-self: end;
+  }
+}
+
+.cell-code {
+  font-family: $header-font;
+  font-size: 13px;
+  color: $board-amber;
+}
+
+.cell-title {
+  font-family: $header-font;
+  font-size: 13.5px;
+  letter-spacing: 0.01em;
+  color: $board-text;
+}
+
+.cell-filed,
+.cell-read {
+  font-family: $header-font;
+  font-size: 11.5px;
+  color: $board-dim;
+}
+
+// Status pill. Colour is a second channel only — the word carries the meaning,
+// so this stays within WCAG 1.4.1 (Use of Color).
+.status {
+  @include board-label(10px, 0.08em);
+  padding: 3px 6px;
+  border: 1px solid;
+  border-radius: 3px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+// Each status colours both its pill on the board and its swatch in the legend.
+@each $slug, $colour in $board-statuses {
+  .status--#{$slug} {
+    color: $colour;
+    border-color: rgba($colour, 0.35);
+    background-color: rgba($colour, 0.07);
+  }
+
+  .key--#{$slug} {
+    color: $colour;
+  }
+}
+
+//=========================================
+// Legend
+//=========================================
+
+// A <details>, not the design's hover-to-reveal: hover alone is unreachable by
+// keyboard and touch. <summary> is focusable and toggles on Enter/Space for free.
+//
+// No top rule here: the last board row's border-bottom already closes the table,
+// and a second line 18px under it reads as a mistake.
+.legend {
+  margin-top: 29px;
+}
+
+.legend-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  list-style: none;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+.legend-icon {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 auto;
+  border: 1px solid $board-dimmer;
+  border-radius: 50%;
+  font-family: $header-font;
+  font-size: 9px;
+  line-height: 13px;
+  text-align: center;
+  color: $board-legend;
+}
+
+.legend-label {
+  @include board-label(10px, 0.18em);
+  color: $board-legend;
+}
+
+.legend-chevron {
+  margin-left: auto;
+  font-family: $header-font;
+  font-size: 15px;
+  line-height: 1;
+  color: $board-dimmer;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.legend[open] .legend-chevron {
+  transform: rotate(90deg);
+}
+
+.legend-body {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-top: 11px;
+
+  p {
+    @include board-label(10px, 0.1em);
+    line-height: 1.5;
+    color: $board-legend;
+    margin: 0;
+  }
+}
+
+.legend[open] .legend-body {
+  animation: legendReveal 0.35s ease;
+}
+
+@keyframes legendReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Must live here, after the rule it cancels — an equal-specificity override in
+// base/_accessibility.scss would be overwritten by this partial.
+@media (prefers-reduced-motion: reduce) {
+  .legend[open] .legend-body {
+    animation: none;
+  }
+}
+
+// Colours come from the $board-statuses loop above.
+.key {
+  font-weight: 600;
+}
+
+//=========================================
+// RSS
+//=========================================
+
+.rss-subscribe {
+  @include board-label(11px, 0.14em);
+  color: $board-dimmer;
+  margin: 26px 0 0;
+
+  a {
+    // Global `a { font-family: $body-font }` is Cormorant; the board is mono.
+    font-family: inherit;
+    color: $board-amber;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.2s ease;
+
+    &:visited {
+      color: $board-amber;
+    }
+
+    &:hover,
+    &:focus {
+      text-decoration-color: $board-amber;
+    }
+  }
+}
+
+//=========================================
+// Responsive
+//=========================================
+
+@media (max-width: 768px) {
+  .board-header {
+    display: none;
+  }
+
+  .board-row {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'code  status'
+      'title title'
+      'filed read';
+    gap: 8px 14px;
+    padding: 18px 8px;
+  }
+
+  .cell-code {
+    grid-area: code;
+  }
+
+  .cell-title {
+    grid-area: title;
+    font-size: 15px;
+  }
+
+  .cell-filed {
+    grid-area: filed;
+  }
+
+  .cell-read {
+    grid-area: read;
+    text-align: right;
+  }
+
+  .board-row .status {
+    grid-area: status;
+  }
+}

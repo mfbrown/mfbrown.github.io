@@ -8,81 +8,143 @@
   display: flex;
   min-height: 100vh;
   width: 100%;
+  background-color: $board-bg;
 }
 
 .left-column {
-  flex: 0 0 33%;
+  flex: 0 0 42%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  background-color: $black;
-  border-right: none;
+  gap: 1.5rem;
+  padding: 2.75rem 2.5rem;
+  background-color: $board-panel;
+  border-right: 1px solid $board-seam;
   position: sticky;
   top: 0;
   height: 100vh;
 }
 
-.initials {
+// Board chrome: status lamp, board name, live clock.
+.board-head {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.board-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: $board-amber;
+  box-shadow: 0 0 10px $board-amber;
+  flex: 0 0 auto;
+  animation: boardBlink 1.5s steps(1) infinite;
+}
+
+.board-title {
+  @include board-label(12px, 0.36em);
+  color: $board-amber;
+}
+
+.board-clock {
+  @include board-label(13px, 0.12em);
+  margin-left: auto;
+  color: $board-dimmer;
+  font-variant-numeric: tabular-nums;
+}
+
+.board-caption {
+  @include board-label(11px, 0.28em);
+  color: $board-legend;
+  margin: 0;
+}
+
+@keyframes boardBlink {
+  0%,
+  48% {
+    opacity: 1;
+  }
+  49%,
+  100% {
+    opacity: 0.12;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .board-dot {
+    animation: none;
+  }
+}
+
+.initials,
+.post-title-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1.5rem;
+  gap: 0.625rem;
 }
 
-.name-line {
+// The home panel stacks board chrome around a left-aligned name. The article
+// panel holds only the title, which the design centres in the panel — lines
+// stay left-aligned to each other, it's the block that centres.
+.left-column--article {
+  align-items: center;
+}
+
+.name-line,
+.title-line {
   display: flex;
-  align-items: baseline;
+  gap: 6px;
+  perspective: 900px;
   line-height: 1;
-  flex-wrap: wrap;
 }
 
-.letter-large {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 6rem;
-  font-weight: 700;
-  color: #fff;
-  line-height: 1;
-  letter-spacing: -0.02em;
-}
-
-.name-rest {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 2.5rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1;
-  perspective: 1000px;
-//   letter-spacing: -0.15em;
-}
-
+// One split-flap tile. The glyph lives on ::before so split-flap.js can cycle
+// it through the alphabet without disturbing the tile's own geometry.
 .flip-letter {
+  @include flap-tile;
   display: inline-block;
   position: relative;
+  min-width: 0.82em;
+  padding: 0.12em 0.05em;
+  font-family: $header-font;
+  font-size: 2.75rem;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  color: transparent;
   transform: rotateX(0deg);
   transform-origin: center center;
-  color: transparent;
-  border: 1px solid #f5f5f538;
-  margin-right: -0.05em;
-  padding: 0 0.1em;
-  
+  backface-visibility: hidden;
+
   &::before {
     content: attr(data-char);
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    color: rgba(255, 255, 255, 0.7);
+    color: $board-amber;
+    text-shadow: 0 0 12px rgba($board-amber, 0.28);
   }
 }
 
 .right-column {
   flex: 1;
-  padding: 8rem 10rem;
-  background-color: #ffffff;
+  padding: 4rem 3.5rem;
+  background-color: $board-bg;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+// The board sits centred in its column; an article reads from the top.
+.right-column--article {
+  justify-content: flex-start;
 }
 
 .posts-container {
-  max-width: 600px;
+  width: 100%;
 }
 
 // Responsive design
@@ -90,59 +152,67 @@
   .two-column-layout {
     flex-direction: column;
   }
-  
+
   .left-column {
     flex: 0 0 auto;
     height: auto;
     position: relative;
-    padding: 2rem 0;
+    padding: 2rem 1.5rem;
+    gap: 1.25rem;
   }
-  
-  .initials, .post-title-container {
+
+  .initials,
+  .post-title-container {
     flex-direction: row !important;
     flex-wrap: wrap;
     gap: 0.5rem;
     align-items: center;
   }
-  
-  .name-line, .title-line {
+
+  // Stacked, the title sits above the article rather than beside it — align it
+  // to the same left edge as everything else instead of centring.
+  .left-column--article {
+    align-items: flex-start;
+  }
+
+  .name-line,
+  .title-line {
     display: inline-flex !important;
     width: auto !important;
     margin: 0 !important;
+    gap: 4px;
   }
-  
-  .letter-large {
-    font-size: 3.5rem;
-  }
-  
-  .name-rest {
+
+  .flip-letter {
     font-size: 1.75rem;
   }
-  
+
   .right-column {
-    padding: 2rem;
+    padding: 2rem 1.5rem;
+    // Vertical centring is for the full-height desktop column; once stacked it
+    // just strands the board halfway down the screen.
+    justify-content: flex-start;
   }
-  
+
   .post-meta {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
   }
-  
+
   .post-content {
     font-size: 1rem;
-    
+
     h1 {
       font-size: 2rem;
     }
-    
+
     h2 {
       font-size: 1.5rem;
     }
-    
+
     h3 {
       font-size: 1.25rem;
     }
   }
 }
-

@@ -1,0 +1,18 @@
+{%- comment -%}
+The board status pill for a post: NEW, UPDATED or ON TIME.
+
+Derived only from things the site actually knows. The design also showed
+POPULAR and SERIES; neither has a data source here, so neither is emitted.
+
+Colour is a second channel only — the word carries the meaning.
+
+Usage: {% include status-badge.html post=post %}
+{%- endcomment -%}
+{%- if include.post.updated -%}
+  {%- assign status = 'updated' -%}
+{%- elsif include.post.url == site.posts.first.url -%}
+  {%- assign status = 'new' -%}
+{%- else -%}
+  {%- assign status = 'on-time' -%}
+{%- endif -%}
+<span class="status status--{{ status }}">{{ status | replace: '-', ' ' | upcase }}</span>
