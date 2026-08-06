@@ -16,6 +16,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  // A title long enough to outgrow the panel would otherwise centre its
+  // overflow and push the board head off the top of the screen. `safe` pins the
+  // start edge in that case only — identical to plain centring when it fits.
+  // The unprefixed declaration above is the fallback for browsers that drop it.
+  justify-content: safe center;
   gap: 1.5rem;
   padding: 2.75rem 2.5rem;
   background-color: $board-panel;
@@ -77,6 +82,9 @@
   }
 }
 
+// The tile block — the name on the home board, the title on an entry. Both sit
+// in the same slot of the same panel, so the first line lands on the same left
+// edge and the block centres on the same midline whichever page you're on.
 .initials,
 .post-title-container {
   display: flex;
@@ -85,17 +93,14 @@
   gap: 0.625rem;
 }
 
-// The home panel stacks board chrome around a left-aligned name. The article
-// panel holds only the title, which the design centres in the panel — lines
-// stay left-aligned to each other, it's the block that centres.
-.left-column--article {
-  align-items: center;
-}
-
-.name-line,
-.title-line {
+// A word longer than the panel wraps onto a second row of flaps rather than
+// running under the seam — post titles aren't length-controlled the way the
+// name is.
+.tile-line {
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
+  max-width: 100%;
   perspective: 900px;
   line-height: 1;
 }
@@ -129,6 +134,9 @@
   }
 }
 
+// Centring applies to both page types. An article taller than the viewport
+// grows the column past its min-height, at which point centring is a no-op and
+// the prose reads from the top as usual.
 .right-column {
   flex: 1;
   padding: 4rem 3.5rem;
@@ -136,11 +144,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-// The board sits centred in its column; an article reads from the top.
-.right-column--article {
-  justify-content: flex-start;
 }
 
 .posts-container {
@@ -169,14 +172,7 @@
     align-items: center;
   }
 
-  // Stacked, the title sits above the article rather than beside it — align it
-  // to the same left edge as everything else instead of centring.
-  .left-column--article {
-    align-items: flex-start;
-  }
-
-  .name-line,
-  .title-line {
+  .tile-line {
     display: inline-flex !important;
     width: auto !important;
     margin: 0 !important;
@@ -192,27 +188,5 @@
     // Vertical centring is for the full-height desktop column; once stacked it
     // just strands the board halfway down the screen.
     justify-content: flex-start;
-  }
-
-  .post-meta {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .post-content {
-    font-size: 1rem;
-
-    h1 {
-      font-size: 2rem;
-    }
-
-    h2 {
-      font-size: 1.5rem;
-    }
-
-    h3 {
-      font-size: 1.25rem;
-    }
   }
 }
