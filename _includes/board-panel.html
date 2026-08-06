@@ -1,0 +1,30 @@
+{%- comment -%}
+The board's left panel: chrome at the top, split-flap tiles in the middle, a
+caption underneath. Every page type renders the same panel — only the tiles
+change — so nothing shifts under you when you move between the board and an
+entry.
+
+Decorative: the tiles repeat a heading the page already carries, and the clock
+and caption are board dressing, so the whole panel is aria-hidden.
+
+Usage:
+  {% assign lines = page.title | split: ' ' %}
+  {% include board-panel.html lines=lines tiles_class="post-title-container" %}
+{%- endcomment -%}
+<div class="left-column" aria-hidden="true">
+  <div class="board-head">
+    <span class="board-dot"></span>
+    <span class="board-title">{{ site.board.title }}</span>
+    <span class="board-clock" data-clock>--:--</span>
+  </div>
+
+  <div class="{{ include.tiles_class | default: 'initials' }}">
+    {% for line in include.lines %}
+    <div class="tile-line">{% include flip-line.html text=line %}</div>
+    {% endfor %}
+  </div>
+
+  <p class="board-caption">
+    {{ site.posts.size }} {% if site.posts.size == 1 %}ENTRY{% else %}ENTRIES{% endif %} ON THE BOARD · LIVE
+  </p>
+</div>

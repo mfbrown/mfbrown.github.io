@@ -3,24 +3,8 @@ layout: default
 ---
 <div class="two-column-layout">
 
-  <div class="left-column" aria-hidden="true">
-    <div class="board-head">
-      <span class="board-dot"></span>
-      <span class="board-title">{{ site.board.title }}</span>
-      <span class="board-clock" data-clock>--:--</span>
-    </div>
-
-    <div class="initials">
-      {% assign name_lines = "MICHAEL,BROWN" | split: "," %}
-      {% for line in name_lines %}
-      <div class="name-line">{% include flip-line.html text=line %}</div>
-      {% endfor %}
-    </div>
-
-    <p class="board-caption">
-      {{ site.posts.size }} {% if site.posts.size == 1 %}ENTRY{% else %}ENTRIES{% endif %} ON THE BOARD · LIVE
-    </p>
-  </div>
+  {% assign name_lines = "MICHAEL,BROWN" | split: "," %}
+  {% include board-panel.html lines=name_lines %}
 
   <div class="right-column">
     <div class="posts-container">

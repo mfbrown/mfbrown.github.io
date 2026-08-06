@@ -175,3 +175,36 @@ p {
 		border-radius: 5px;
 	}
 }
+
+//=========================================
+// Responsive
+//=========================================
+
+// Must live here rather than in layout/two-column.scss: this partial is
+// imported last, so an equal-specificity rule there loses the cascade to the
+// defaults above no matter what the media query says.
+@media (max-width: 768px) {
+	// Too narrow to sit the back link and the filing line on one row; stacked,
+	// they keep the left edge the rest of the column reads from.
+	.post-meta {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1rem;
+	}
+
+	.post-content {
+		font-size: 1rem;
+
+		h1 {
+			font-size: 2rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+		}
+	}
+}

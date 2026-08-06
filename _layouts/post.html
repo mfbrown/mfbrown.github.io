@@ -4,16 +4,10 @@ layout: default
 {% assign topic = site.board.topics[page.topic] %}
 <div class="two-column-layout">
 
-  <div class="left-column left-column--article" aria-hidden="true">
-    <div class="post-title-container">
-      {% assign title_words = page.title | split: ' ' %}
-      {% for word in title_words %}
-      <div class="title-line">{% include flip-line.html text=word %}</div>
-      {% endfor %}
-    </div>
-  </div>
+  {% assign title_words = page.title | split: ' ' %}
+  {% include board-panel.html lines=title_words tiles_class="post-title-container" %}
 
-  <div class="right-column right-column--article">
+  <div class="right-column">
     <div class="post-article-container">
       <div class="post-meta">
         <a href="{{ "/" | prepend: site.baseurl }}" class="back-link"><span aria-hidden="true">←</span> <span class="sr-only">Back to </span>{{ site.board.title }}</a>
