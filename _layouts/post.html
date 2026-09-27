@@ -1,33 +1,144 @@
----
-layout: default
----
-<div class="two-column-layout">
+{% if page.preview %}{% assign p = site.posts.first %}{% else %}{% assign p = page %}{% endif %}{% assign home = page.home | default: '/' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ p.title }} — {{ site.title }}</title>
+<meta name="description" content="{{ p.excerpt | strip_html | truncate: 160 }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#0B0B0A; --board:#151412; --tile:#1E1D1B; --tile-2:#262421; --line:rgba(237,234,228,.1);
+  --paper:#EDEAE4; --muted:#9A958D; --amber:#FFCA71;
+  --m:96px; --r:48px;
+  --display:"Bebas Neue",Impact,sans-serif; --title:"Barlow","Source Sans 3",system-ui,sans-serif; --body:"Source Sans 3",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--black);color:var(--paper);font-family:var(--body);font-weight:300;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.skip{position:absolute;left:-999px;top:0;background:var(--amber);color:var(--black);padding:.5rem 1rem;z-index:99}
+.skip:focus{left:1rem;top:1rem}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:var(--black)}
+.bg canvas{position:relative;width:100%;height:100%;display:block;opacity:0;transition:opacity 1.6s ease-out}
+.bg canvas.is-ready{opacity:1}
+.shade{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:linear-gradient(90deg,rgba(11,11,10,.15) 0%,rgba(11,11,10,.7) 18%,rgba(11,11,10,.97) 30%,rgba(11,11,10,.99) 45%,rgba(11,11,10,.99) 100%),
+             linear-gradient(180deg,rgba(11,11,10,.2) 0%,rgba(11,11,10,0) 14%)}
+.page{position:relative;z-index:1}
 
-  <div class="left-column" aria-hidden="true">
-    <div class="post-title-container">
-      {% assign title_words = page.title | split: ' ' %}
-      {% for word in title_words %}
-      <div class="title-line">
-        {% assign chars = word | split: '' %}
-        <span class="name-rest">{%- for char in chars -%}<span class="flip-letter" data-char="{{ char | upcase }}">{{ char | upcase }}</span>{%- endfor -%}</span>
-      </div>{% unless forloop.last %} {% endunless %}
-      {% endfor %}
-    </div>
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:calc(var(--r)/1.5) var(--r);font-family:var(--mono);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.topbar a{text-decoration:none}
+.topbar nav a{margin-left:1.6em}
+.topbar nav a:hover,.topbar nav a:focus-visible{color:var(--amber)}
+
+/* ---------- Column ---------- */
+.col{display:flex;justify-content:flex-end;padding:0 var(--r)}
+.col>*{width:min(880px,72vw)}
+.head{padding:calc(var(--r)*1.4) 0 var(--r)}
+.head .date{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber)}
+.head h1{margin:.5em 0 .6em;font-family:var(--title);font-weight:600;font-size:clamp(36px,4.4vw,64px);line-height:1.08;letter-spacing:-.01em;color:var(--paper)}
+.head .meta{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.head .meta span+span::before{content:"·";margin:0 .8em;color:var(--muted)}
+
+/* ---------- Article ---------- */
+.article{padding-bottom:var(--m);font-size:clamp(18px,1.4vw,21px);line-height:1.62}
+.article>*:first-child{margin-top:0}
+.article p{margin:0 0 1.35em}
+.article p:first-of-type{font-size:1.12em;font-weight:400;color:#fff}
+.article a{color:var(--amber);text-decoration:none;background:linear-gradient(currentColor,currentColor) no-repeat 0 100%/100% 1px;transition:background-size .3s}
+.article a:hover{background-size:100% 2px}
+.article h2{font-family:var(--title);font-weight:600;font-size:clamp(28px,2.6vw,38px);line-height:1.15;letter-spacing:-.01em;margin:2.2em 0 .5em;color:var(--paper)}
+.article h2::before{content:"";display:block;width:32px;height:2px;background:var(--amber);margin-bottom:.7em}
+.article h3{font-family:var(--title);font-weight:600;font-size:1.15em;margin:2em 0 .5em;color:#fff}
+.article ul,.article ol{padding-left:1.3em;margin:0 0 1.35em}
+.article li{margin:.35em 0}
+.article li::marker{color:var(--amber)}
+.article blockquote{margin:2em 0;padding:.2em 0 .2em 1.4em;border-left:2px solid var(--amber);font-size:1.12em;font-style:italic;color:var(--paper)}
+.article blockquote p{margin:0}
+.article code{font-family:var(--mono);font-size:.85em;background:var(--tile);padding:.1em .4em;border-radius:3px}
+.article pre{background:var(--tile);padding:1.2em 1.4em;overflow:auto;border-radius:6px;box-shadow:inset 0 1px 0 rgba(255,255,255,.06);font-size:.85em;line-height:1.5}
+.article pre code{background:none;padding:0}
+.article img{max-width:100%;height:auto;display:block;border-radius:6px}
+.article figure{margin:2.2em 0}
+.article figcaption{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:.9em}
+.article hr{border:0;border-top:1px solid var(--line);margin:3em 0}
+.article .sample-note{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- Rows ---------- */
+.rows{padding-bottom:var(--m)}
+.rows ul{list-style:none;margin:0;padding:0}
+.row{display:grid;grid-template-columns:9ch 1fr;gap:calc(var(--r)*.6);align-items:center;padding:1rem 0;border-top:1px solid var(--line);text-decoration:none;color:inherit;transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+.rows li:last-child .row{border-bottom:1px solid var(--line)}
+.row .k{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber)}
+.row .title{font-family:var(--title);font-weight:600;font-size:clamp(19px,1.5vw,23px);line-height:1.2;color:var(--paper)}
+.row .title.dim{color:var(--muted);font-weight:500}
+.row:hover,.row:focus-visible{transform:translateX(6px)}
+.row:hover .title,.row:focus-visible .title{color:var(--amber)}
+.foot{padding:var(--r);border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);background:rgba(11,11,10,.85)}
+.foot a{text-decoration:none}
+@media (max-width:900px){
+  :root{--r:20px;--m:56px}
+  .shade{background:linear-gradient(180deg,rgba(11,11,10,.35) 0%,rgba(11,11,10,.85) 22%,rgba(11,11,10,.975) 40%,rgba(11,11,10,.985) 100%)}
+  .topbar{font-size:10px;letter-spacing:.16em;flex-wrap:wrap;gap:.6em 1em}.topbar nav a{margin:0 1em 0 0}
+  .col>*{width:100%}
+  .head{padding-top:18vh}
+  .head h1{font-size:clamp(30px,8vw,40px)}
+  .row{grid-template-columns:1fr;gap:.3rem}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#article">Skip to article</a>
+<div class="bg" aria-hidden="true"><canvas id="gl"></canvas></div>
+<div class="shade" aria-hidden="true"></div>
+
+<div class="page">
+<header class="topbar">
+  <a href="{{ home | prepend: site.baseurl }}">{{ site.title }}</a>
+  <nav aria-label="Main">
+    <a href="{{ home | prepend: site.baseurl }}#posts">Posts</a>
+    <a href="{{ '/about/' | prepend: site.baseurl }}">About</a>
+    <a href="{{ '/feed.xml' | prepend: site.baseurl }}">RSS</a>
+  </nav>
+</header>
+
+<div class="col">
+  <div class="head">
+    <time class="date" datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: "%d %b %Y" }}</time>
+    <h1>{{ p.title }}</h1>
+    <div class="meta"><span>{{ content | number_of_words | divided_by: 200 | plus: 1 }} min read</span><span>{{ site.title }}</span></div>
   </div>
-
-  <div class="right-column">
-    <div class="post-article-container">
-      <div class="post-meta">
-        <a href="{{ "/" | prepend: site.baseurl }}" class="back-link">← Back to home</a>
-        <p class="post-date">{{ page.date | date: "%b %-d, %Y" }}</p>
-      </div>
-
-      <h1 class="sr-only">{{ page.title }}</h1>
-
-      <article class="post-content">
-        {{ content }}
-      </article>
-    </div>
-  </div>
-
 </div>
+
+<main class="col" id="article">
+  <article class="article">
+    {{ content }}
+  </article>
+</main>
+
+<div class="col rows">
+  <ul>
+    <li><a class="row" href="{{ home | prepend: site.baseurl }}#posts"><span class="k">← Back</span><span class="title">All posts</span></a></li>
+    <li><a class="row" href="{{ '/feed.xml' | prepend: site.baseurl }}"><span class="k">RSS</span><span class="title dim">Subscribe</span></a></li>
+  </ul>
+</div>
+
+<footer class="foot">
+  <span>© {{ site.time | date: "%Y" }} {{ site.title }}</span>
+  <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="{{ '/assets/js/home/board3d.js' | prepend: site.baseurl }}"></script>
+<script src="{{ '/assets/js/home/departures.js' | prepend: site.baseurl }}"></script>
+<script>
+var board = BOARD3D.run(document.getElementById('gl'), { still: true });
+DEPARTURES.init(board, { url: '{{ '/assets/data/ewr-departures.json' | prepend: site.baseurl }}' });
+</script>
+</body>
+</html>
