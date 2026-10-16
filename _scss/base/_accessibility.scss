@@ -17,16 +17,18 @@
 }
 
 // Skip navigation link — WCAG 2.4.1 (Bypass Blocks)
+// Amber on near-black: $black would all but disappear against the board.
 .skip-link {
   position: absolute;
   top: -100%;
   left: 0;
   z-index: 1000;
   padding: 0.75rem 1.5rem;
-  background-color: $black;
-  color: #fff;
-  font-family: 'IBM Plex Mono', monospace;
+  background-color: $board-amber;
+  color: $board-bg;
+  font-family: $header-font;
   font-size: 0.9rem;
+  font-weight: 600;
   text-decoration: none;
 
   &:focus {
@@ -36,42 +38,26 @@
   }
 }
 
-// Focus indicators — WCAG 2.4.7 (Focus Visible)
+// Focus indicators — WCAG 2.4.7 (Focus Visible), 1.4.11 (Non-text Contrast)
 *:focus-visible {
   outline: 3px solid $dark-blue;
   outline-offset: 2px;
 }
 
-// Ensure links within dark backgrounds get appropriate focus color
-.left-column *:focus-visible {
+// $dark-blue is 1.5:1 against the board's near-black and reads as no ring at
+// all. $tomato clears 7.3:1 on both board surfaces.
+.two-column-layout *:focus-visible {
   outline-color: $tomato;
 }
 
-.site-title:focus-visible {
-  outline: 3px solid $dark-blue;
-  outline-offset: 4px;
-}
-
-// Color contrast fixes — WCAG 1.4.3 (Contrast Minimum)
-// .post-date was #999 on white (2.85:1) — now #767676 (4.54:1)
-.post-date {
-  color: #595959;
-}
-
-// Ensure post-content links are distinguishable — WCAG 1.4.1 (Use of Color)
-// Links must not rely on color alone; underline provides secondary indicator
-.post-content a {
-  text-decoration: underline;
-  text-decoration-color: rgba(68, 68, 68, 0.4);
-  text-underline-offset: 2px;
-
-  &:hover,
-  &:focus {
-    text-decoration-color: #444;
-  }
-}
-
 // Reduced motion — WCAG 2.3.1 (Three Flashes or Below Threshold)
+//
+// Only .flip-letter belongs here: split-flap.js injects its keyframes into a
+// late <style>, so this needs !important to win regardless of source order.
+// Every other animated board element carries its own reduced-motion query
+// alongside its animation — this file is in base/, which is imported before
+// layout/, so an override here loses the cascade to any equal-specificity rule
+// in a layout partial. The live clock is not motion and keeps running.
 @media (prefers-reduced-motion: reduce) {
   .flip-letter {
     animation: none !important;

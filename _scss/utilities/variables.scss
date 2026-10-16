@@ -13,3 +13,28 @@ $gutter-width: 0.625em; //10px
 $dark-blue: #02587d;
 $tomato: #ff7459;
 $black: #1a1a1a;
+
+
+// Split-flap board palette
+$board-bg: #0c0d11;
+$board-panel: #0a0a0c;
+$board-seam: #1c1d23;
+$board-amber: #f4b93e;
+
+$board-rule: rgba(244, 185, 62, 0.22);
+$board-rule-faint: rgba(244, 185, 62, 0.1);
+$board-row-hover: rgba(244, 185, 62, 0.05);
+
+$board-text: #e7e5df; // post titles
+$board-body: #d7d5cf; // article prose
+
+// Greys re-derived from the design's values to clear WCAG AA (4.5:1 on
+// $board-bg) at the small sizes they're used at. Design used #6f727c (4.05:1),
+// #565963 (2.78:1) and #5a5d66 (2.95:1).
+$board-dim: #8b8e97; // 5.93:1 — dates, read times
+$board-dimmer: #787b86; // 4.60:1 — column headers
+$board-legend: #777b88; // 4.60:1 — legend body, caption
+
+$status-new: $board-amber; // 10.96:1
+$status-updated: #6aa8e0; // 7.67:1
+$status-ontime: $board-dim; // 5.93:1

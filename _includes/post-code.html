@@ -1,0 +1,17 @@
+{%- comment -%}
+Board code for a post, e.g. PM·01 — topic code plus the post's entry number
+within that topic. Numbered oldest-first so a post's code never changes when a
+newer one is published.
+
+Usage: {% include post-code.html post=post %}
+{%- endcomment -%}
+{%- assign topic = site.board.topics[include.post.topic] -%}
+{%- assign code = topic.code | default: 'GN' -%}
+{%- assign entry = 0 -%}
+{%- if include.post.topic -%}
+  {%- assign siblings = site.posts | where: 'topic', include.post.topic | sort: 'date' -%}
+  {%- for sibling in siblings -%}
+    {%- if sibling.url == include.post.url -%}{%- assign entry = forloop.index -%}{%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+{{- code }}·{{ entry | prepend: '0' | slice: -2, 2 -}}
